@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profiles">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            app:titleTextColor="#FFF"
+            android:layout_height="wrap_content">
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/recyclerView"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:layout_alignParentBottom="true"
+            android:id="@+id/loading"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>
+</RelativeLayout>
