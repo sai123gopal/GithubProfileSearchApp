@@ -1,12 +1,15 @@
 package com.saigopal.githubprofil;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,8 +32,7 @@ public class Profiles extends AppCompatActivity {
     private com.saigopal.githubprofil.recycleViewAdapter recycleViewAdapter;
     private int PageNumber = 1;
     private ArrayList<ProfileModel> dataList = new ArrayList<>();
-    private Toolbar toolbar;
-
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,10 @@ public class Profiles extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = findViewById(R.id.loading);
-        toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        toolbar.setTitle("Profiles");
+        actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setHomeButtonEnabled(true);
+        actionBar.setIcon(R.drawable.ic_baseline_search_24);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         assert Name != null;
         if (!Name.isEmpty())
@@ -115,11 +116,13 @@ public class Profiles extends AppCompatActivity {
             try {
                 JSONObject jsonResponse = new JSONObject(xml);
                 JSONArray jsonArray = jsonResponse.optJSONArray("items");
-                if(jsonArray == null || jsonArray.length() == 0)
-                {
-                    Error("Profile Not found");
+                if (Integer.parseInt(jsonResponse.optString("total_count")) == 0){
+                    Error("Profile Not Found");
+                }
+                else if(jsonArray == null || jsonArray.length() == 0) {
+                    Error("There are no more Profiles");
                 } else {
-                    toolbar.setTitle("Total Profiles : "+jsonResponse.optString("total_count"));
+                    actionBar.setTitle("Total Profiles : "+jsonResponse.optString("total_count"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         ProfileModel model = new ProfileModel(jsonObject.optString(KEY_USER_ID),jsonObject.optString(KEY_AVATAR_URL));
@@ -131,11 +134,13 @@ public class Profiles extends AppCompatActivity {
                 assert jsonArray != null;
                 progressBar.setVisibility(View.GONE);
 
-            } catch (JSONException e) {
-                Log.d("Json Exception : ", e + "");
-                Error("Json Exception");
             }
-
+            catch (JSONException ex){
+                Log.d("JsonException : ", ex + "");
+                Error("Error \nPlease try again later");
+            } catch (Exception e) {
+                Log.d("Exception : ", e + "");
+            }
 
         }
 
