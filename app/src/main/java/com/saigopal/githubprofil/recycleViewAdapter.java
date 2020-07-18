@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -123,6 +122,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void Dialog(String ImageURl, String UserId, String name, String followers, String following, String bio, String email, String repos, final String url)
     {
         final Dialog dialog = new Dialog(context);
