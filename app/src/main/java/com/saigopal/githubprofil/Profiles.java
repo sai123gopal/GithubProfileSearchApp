@@ -81,7 +81,7 @@ public class Profiles extends AppCompatActivity {
             }
         });
 
-        recycleViewAdapter = new recycleViewAdapter(dataList);
+        recycleViewAdapter = new recycleViewAdapter(dataList,Profiles.this);
         recyclerView.setAdapter(recycleViewAdapter);
 
     }
@@ -92,6 +92,7 @@ public class Profiles extends AppCompatActivity {
 
         static final String KEY_USER_ID = "login";
         static final String KEY_AVATAR_URL = "avatar_url";
+        static final String KEY_URL = "url";
 
         String Name;
         public Profile_details(String name , int pageNumber) {
@@ -106,9 +107,7 @@ public class Profiles extends AppCompatActivity {
         }
 
         protected String doInBackground(String... args) {
-            String xml = Functions.Get("https://api.github.com/search/users?q="+Name+"&page="+PageNumber);
-            Log.d("URL ", Objects.requireNonNull(xml));
-            return xml;
+            return Functions.Get("https://api.github.com/search/users?q="+Name+"&page="+PageNumber);
         }
 
         @Override
@@ -125,7 +124,8 @@ public class Profiles extends AppCompatActivity {
                     actionBar.setTitle("Total Profiles : "+jsonResponse.optString("total_count"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        ProfileModel model = new ProfileModel(jsonObject.optString(KEY_USER_ID),jsonObject.optString(KEY_AVATAR_URL));
+                        ProfileModel model = new ProfileModel(jsonObject.optString(KEY_USER_ID),
+                                jsonObject.optString(KEY_AVATAR_URL),jsonObject.optString(KEY_URL));
                         dataList.add(model);
                         recycleViewAdapter.notifyDataSetChanged();
                     }
@@ -139,7 +139,7 @@ public class Profiles extends AppCompatActivity {
                 Log.d("JsonException : ", ex + "");
                 Error("Error \nPlease try again later");
             } catch (Exception e) {
-                Log.d("Exception : ", e + "");
+                Log.d("Exception ", e + "");
             }
 
         }

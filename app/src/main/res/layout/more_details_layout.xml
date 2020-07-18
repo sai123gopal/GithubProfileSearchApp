@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:id="@+id/user_id"
+            android:textColor="@color/colorAccent"
+            android:layout_marginVertical="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:layout_below="@+id/user_id"
+            android:src="@drawable/ic_github_logo"
+            android:id="@+id/profile_image"
+            android:layout_centerVertical="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+        </ImageView>
+
+        <RelativeLayout
+            android:layout_marginStart="10dp"
+            android:id="@+id/details_layout"
+            android:layout_below="@+id/user_id"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/follow_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Followers"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:layout_below="@+id/followers"
+                    android:id="@+id/followers_number"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:text="Following"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:layout_marginEnd="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/following"
+                    android:id="@+id/following_number"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/name"
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_below="@+id/email"
+                android:id="@+id/public_repos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_marginVertical="5dp"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_below="@+id/follow_lay"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/public_repos"
+                android:id="@+id/bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/open"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Open in Github"
+            android:layout_below="@+id/details_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

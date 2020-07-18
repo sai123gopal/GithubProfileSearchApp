@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String NameSearch = name.getText().toString();
+                String NameSearch = name.getText().toString().trim();
 
                 if (NameSearch.isEmpty()){
                     Toast.makeText(MainActivity.this, "Please Enter user name", Toast.LENGTH_SHORT).show();
