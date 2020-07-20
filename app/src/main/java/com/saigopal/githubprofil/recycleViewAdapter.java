@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +28,9 @@ import java.util.Objects;
 public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.view>
 {
 
-    private ArrayList<ProfileModel> data;
-    private Context context;
+    private final ArrayList<ProfileModel> data;
+    private final Context context;
+
     public recycleViewAdapter(ArrayList<ProfileModel> data,Context context){
         this.data = data;
         this.context = context;
@@ -107,7 +110,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
                 Dialog(jsonResponse.optString("avatar_url"),jsonResponse.optString("login"),
                         jsonResponse.optString("name"),jsonResponse.optString("followers"),
                         jsonResponse.optString("following"),jsonResponse.optString("bio"),
-                        jsonResponse.optString("email"),jsonResponse.optString("public_repos"),
+                        jsonResponse.optString("location"),jsonResponse.optString("public_repos"),
                         jsonResponse.optString("html_url")
                 );
 
@@ -123,7 +126,8 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
     }
 
     @SuppressLint("SetTextI18n")
-    private void Dialog(String ImageURl, String UserId, String name, String followers, String following, String bio, String email, String repos, final String url)
+    private void Dialog(String ImageURl, String UserId, String name, String followers, String following,
+                        String bio, String location, String repos, final String url)
     {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(true);
@@ -140,6 +144,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
         TextView Following = dialog.findViewById(R.id.following_number);
         ImageView Profile = dialog.findViewById(R.id.profile_image);
         Button Open = dialog.findViewById(R.id.open);
+        ImageButton close = dialog.findViewById(R.id.close_btn);
 
         Picasso.get()
                 .load(ImageURl)
@@ -147,7 +152,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
 
         UserID.setText(UserId);
         UserName.setText(name);
-        Email.setText("Email : "+email);
+        Email.setText("Location : "+location);
         Bio.setText("Bio : "+bio);
         Repos.setText("Public Repos : "+repos);
         Followers.setText(followers);
@@ -159,6 +164,12 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
                 context.startActivity(new
                         Intent(Intent.ACTION_VIEW,
                         Uri.parse(url)));
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
 
