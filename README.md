@@ -1,4 +1,5 @@
 # GithubProfileSearchApp
+Simple profile search app
 
 <img src="Screenshot/screenshot D1.png" width="280px" alt="Screenshot" /><img src="Screenshot/Screenshoot1.png" width="280px" alt="Screenshot" />
 
