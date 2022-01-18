@@ -14,11 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +42,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull view holder, final int position)
+    public void onBindViewHolder(@NonNull view holder, @SuppressLint("RecyclerView") final int position)
     {
         holder.UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,24 +67,20 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
         return data.size();
     }
 
-    static class view extends RecyclerView.ViewHolder
-    {
+    static class view extends RecyclerView.ViewHolder {
         ImageView UserImage;
         TextView userID;
-        view(@NonNull View itemView)
-        {
+        view(@NonNull View itemView) {
             super(itemView);
             UserImage = itemView.findViewById(R.id.avatar_img);
-             userID = itemView.findViewById(R.id.userId);
-
+            userID = itemView.findViewById(R.id.userId);
         }
     }
 
     @SuppressLint("StaticFieldLeak")
     class MoreDetails extends AsyncTask<String, Void, String> {
-
         String Url;
-         Context context;
+        Context context;
         public MoreDetails(String url,Context context) {
             Url = url;
             this.context = context;
@@ -113,7 +106,6 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
                         jsonResponse.optString("location"),jsonResponse.optString("public_repos"),
                         jsonResponse.optString("html_url")
                 );
-
             }
             catch (JSONException ex){
                 Log.d("JsonException : ", ex + "");
@@ -127,8 +119,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
 
     @SuppressLint("SetTextI18n")
     private void Dialog(String ImageURl, String UserId, String name, String followers, String following,
-                        String bio, String location, String repos, final String url)
-    {
+                        String bio, String location, String repos, final String url) {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(true);
 
@@ -146,9 +137,7 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
         Button Open = dialog.findViewById(R.id.open);
         ImageButton close = dialog.findViewById(R.id.close_btn);
 
-        Picasso.get()
-                .load(ImageURl)
-                .into(Profile);
+        Picasso.get().load(ImageURl).into(Profile);
 
         UserID.setText(UserId);
         UserName.setText(name);
@@ -158,21 +147,9 @@ public class recycleViewAdapter extends RecyclerView.Adapter<recycleViewAdapter.
         Followers.setText(followers);
         Following.setText(following);
 
-        Open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new
-                        Intent(Intent.ACTION_VIEW,
-                        Uri.parse(url)));
-            }
-        });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        Open.setOnClickListener(v -> context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
 
+        close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
 
